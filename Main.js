@@ -1,4 +1,28 @@
-﻿// Set the scene size.
+﻿class World
+{
+   constructor() {
+      // Set the scene size.
+      this.WIDTH = window.innerWidth;
+      this.HEIGHT = window.innerHeight;
+
+      // Set some camera attributes.
+      this.VIEW_ANGLE = 45;
+      this.ASPECT = WIDTH / HEIGHT;
+      this.NEAR = 0.1;
+      this.FAR = 10000;
+   }
+
+   GetWidth()
+   {
+      return this.WIDTH;
+   }
+
+   GetHeight() {
+      return this.HEIGHT;
+   }
+}
+
+// Set the scene size.
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
@@ -8,6 +32,8 @@ const ASPECT = WIDTH / HEIGHT;
 const NEAR = 0.1;
 const FAR = 10000;
 
+var world = new World();
+
 // Get the DOM element to attach to
 const container =
    document.querySelector('#container');
@@ -16,6 +42,7 @@ const container =
 // and a scene
 const renderer = new THREE.WebGLRenderer();
 const camera =
+   //new THREE.PerspectiveCamera(world.VIEW_ANGLE, world.ASPECT, world.NEAR, world.FAR);
    new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 
 const scene = new THREE.Scene();
@@ -24,7 +51,9 @@ const scene = new THREE.Scene();
 scene.add(camera);
 
 // Start the renderer.
-renderer.setSize(WIDTH, HEIGHT);
+console.log("world.WIDTH = " + world.GetWidth());
+renderer.setSize(world.GetWidth(), world.GetHeight());
+//renderer.setSize(WIDTH, HEIGHT);
 
 // Attach the renderer-supplied
 // DOM element.
