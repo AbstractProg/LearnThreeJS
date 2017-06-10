@@ -1,17 +1,16 @@
-﻿function RendererManager(sceneManager) {
+﻿function RendererManager() {
 
    this.Update = function () {
       // Draw!
-      m_renderer.render(m_sceneManager.GetScene(), m_sceneManager.GetCamera());
-      console.log(m_sceneManager.GetCamera().position.x);
-
+      m_renderer.render(sceneManager.GetScene(), cameraManager.GetCamera());
       // Schedule the next frame.
-      requestAnimationFrame(animationFunc);
+   requestAnimationFrame(animationFunc);
+   fpsBox.update();
    }
 
+   var fpsBox;
    var m_renderer = new THREE.WebGLRenderer();
    var m_sceneManager = sceneManager;
-   //console.log(m_sceneManager);
    var animationFunc = this.Update;
 
    // Get the DOM element to attach to
@@ -21,12 +20,15 @@
    container.appendChild(m_renderer.domElement);
 
    //animationFunc = this.Update;
-   console.log(animationFunc);
 
-   m_renderer.setSize(m_sceneManager.GetWidth(), m_sceneManager.GetHeight());
+   m_renderer.setSize(WIDTH, HEIGHT);
 
-   this.StartMainLoop = function () {
-      // Schedule the first frame.
-      requestAnimationFrame(animationFunc);
+   this.AddFPSDisplay = function ()
+   {
+      fpsBox = new Stats();
+      fpsBox.domElement.style.position = 'absolute';
+      fpsBox.domElement.style.bottom = '0px';
+      fpsBox.domElement.style.zIndex = 100;
+      container.appendChild(fpsBox.domElement);
    }
 }

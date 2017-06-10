@@ -1,9 +1,11 @@
-﻿function SceneManager(cameraManager)
+﻿function SceneManager()
 {
-   var m_cameraManager = cameraManager;
    var m_scene = new THREE.Scene();
 
-   m_scene.add(m_cameraManager.GetCamera());
+   this.AddObject = function (object)
+   {
+      m_scene.add(object);
+   }
 
    // create a point light
    const pointLight =
@@ -11,8 +13,8 @@
 
    // set its position
    pointLight.position.x = 10;
-   pointLight.position.y = 50;
-   pointLight.position.z = 130;
+   pointLight.position.y = 100;
+   pointLight.position.z = -15;
 
    // add to the scene
    m_scene.add(pointLight);
@@ -50,26 +52,13 @@
    // Finally, add the sphere to the scene.
    scene.add(sphere);*/
 
-   const box = new THREE.Mesh(
+   const floor = new THREE.Mesh(
       new THREE.BoxGeometry(500, 10, 600), sphereMaterial);
-   box.position.y = -50;
-   box.position.z = -300;
-   m_scene.add(box);
-
-   this.GetWidth = function()
-   {
-      return cameraManager.GetWidth();
-   }
-
-   this.GetHeight = function () {
-      return cameraManager.GetHeight();
-   }
+   floor.position.y = -10;
+   floor.position.z = -300;
+   m_scene.add(floor);
 
    this.GetScene = function () {
       return m_scene;
-   }
-
-   this.GetCamera = function () {
-      return m_cameraManager.GetCamera();
    }
 }
